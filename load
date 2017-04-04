@@ -1,0 +1,27 @@
+#!/bin/bash
+
+if [ ! -d lib/ ]; then
+    mkdir -p lib/my/
+fi
+
+if [ ! -d include/ ]; then
+    mkdir include
+fi
+cp -R $HOME/.push/my_printf lib/my/
+cp -R $HOME/.push/my_fprintf lib/my/
+if [ $# -eq 1 ]; then
+   if [ $1 = 2 ]; then
+       cp -R $HOME/.push/double_list lib/my/list
+   else
+       cp -R $HOME/.push/list lib/my
+   fi
+else
+    cp -R $HOME/.push/list lib/my
+fi
+mv lib/my/list/list.h include
+mv lib/my/my_printf/my_printf.h include
+mv lib/my/my_fprintf/my_fprintf.h include
+
+echo '#include "my_printf.h"' > include/my.h
+echo '#include "my_fprintf.h"' >> include/my.h
+echo '#include "list.h"' >> include/my.h
